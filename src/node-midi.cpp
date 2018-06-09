@@ -30,6 +30,8 @@ public:
         Nan::SetPrototypeMethod(t, "openVirtualPort", OpenVirtualPort);
         Nan::SetPrototypeMethod(t, "closePort", ClosePort);
 
+        Nan::SetPrototypeMethod(t, "isPortOpen", IsPortOpen);
+
         Nan::SetPrototypeMethod(t, "sendMessage", SendMessage);
 
         target->Set(Nan::New<v8::String>("output").ToLocalChecked(), t->GetFunction());
@@ -131,6 +133,14 @@ public:
         return;
     }
 
+    static NAN_METHOD(IsPortOpen)
+    {
+        Nan::HandleScope scope;
+        NodeMidiOutput* output = Nan::ObjectWrap::Unwrap<NodeMidiOutput>(info.This());
+        v8::Local<v8::Boolean> result = Nan::New<v8::Boolean>(output->out->isPortOpen());
+        info.GetReturnValue().Set(result);
+    }
+
     static NAN_METHOD(SendMessage)
     {
         Nan::HandleScope scope;
@@ -188,6 +198,8 @@ public:
         Nan::SetPrototypeMethod(t, "openPort", OpenPort);
         Nan::SetPrototypeMethod(t, "openVirtualPort", OpenVirtualPort);
         Nan::SetPrototypeMethod(t, "closePort", ClosePort);
+
+        Nan::SetPrototypeMethod(t, "isPortOpen", IsPortOpen);
 
         Nan::SetPrototypeMethod(t, "ignoreTypes", IgnoreTypes);
 
@@ -338,6 +350,14 @@ public:
         input->in->closePort();
         uv_close((uv_handle_t*)&input->message_async, NULL);
         return;
+    }
+
+    static NAN_METHOD(IsPortOpen)
+    {
+        Nan::HandleScope scope;
+        NodeMidiInput* input = Nan::ObjectWrap::Unwrap<NodeMidiInput>(info.This());
+        v8::Local<v8::Boolean> result = Nan::New<v8::Boolean>(input->in->isPortOpen());
+        info.GetReturnValue().Set(result);
     }
 
     static NAN_METHOD(IgnoreTypes)
