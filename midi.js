@@ -3,7 +3,7 @@ const Stream = require('stream');
 
 // MIDI input inherits from EventEmitter3
 const EventEmitter = require('eventemitter3');
-midi.input.prototype.__proto__ = EventEmitter.prototype;
+midi.input.prototype.__proto__ = new EventEmitter();
 
 module.exports = midi;
 
