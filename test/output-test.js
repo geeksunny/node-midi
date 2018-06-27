@@ -1,6 +1,6 @@
-var midi = require("../midi.js");
+const midi = require("../midi.js");
 
-var output = new midi.output();
+let output = new midi.output();
 console.log(output.getPortCount());
 console.log(output.getPortName(0));
 output.openPort(0);

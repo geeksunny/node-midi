@@ -1,6 +1,6 @@
-var midi = require("../midi.js");
+const midi = require("../midi.js");
 
-var output = new midi.output();
+let output = new midi.output();
 output.openVirtualPort("node-midi Virtual Output");
 setTimeout(function() {
   output.sendMessage([144,64,90]);

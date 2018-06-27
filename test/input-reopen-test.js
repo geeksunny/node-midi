@@ -1,7 +1,7 @@
-var midi = require('../midi.js');
-var input;
+const midi = require('../midi.js');
+let input;
 
-var newInput = function(port) {
+let newInput = function(port) {
   if (input) {
     input.closePort();
   }

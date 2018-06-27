@@ -1,11 +1,11 @@
-var midi = require("../midi.js");
-var virtualInput = new midi.input();
-var output = new midi.output();
-var assert = require('assert');
-var fs = require('fs');
-var expect = [144, 23, 81];
-var called = false;
-var writer = midi.createWriteStream(output);
+const midi = require("../midi.js");
+let virtualInput = new midi.input();
+let output = new midi.output();
+const assert = require('assert');
+const fs = require('fs');
+const expect = [144, 23, 81];
+let called = false;
+let writer = midi.createWriteStream(output);
 
 virtualInput.openVirtualPort("node-midi");
 virtualInput.on('message', function(deltaTime, buffer) {

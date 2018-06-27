@@ -1,10 +1,10 @@
-var midi = require("../midi.js");
+const midi = require("../midi.js");
 
-var outputName = "node-midi Virtual Output";
-var inputName = "node-midi Virtual Input";
+const outputName = "node-midi Virtual Output";
+const inputName = "node-midi Virtual Input";
 
-var virtualOutput = new midi.output();
-var virtualInput = new midi.input();
+let virtualOutput = new midi.output();
+let virtualInput = new midi.input();
 
 virtualOutput.openVirtualPort(outputName);
 virtualInput.on('message', function(deltaTime, message) {
@@ -18,15 +18,15 @@ virtualInput.on('message', function(deltaTime, message) {
 virtualInput.openVirtualPort(inputName);
 
 setTimeout(function() {
-  var output = new midi.output();
-  var input = new midi.input();
+  let output = new midi.output();
+  let input = new midi.input();
 
   input.on('message', function(deltaTime, message) {
     console.log('Input recieved m:' + message + ' d:' + deltaTime);
   });
 
   console.log('Enumerating inputs');
-  for (var i = 0; i < input.getPortCount(); ++i) {
+  for (let i = 0; i < input.getPortCount(); ++i) {
     console.log('Input found: ' + input.getPortName(i));
     if (input.getPortName(i) == outputName) {
       console.log('Opening ' + input.getPortName(i));
@@ -35,7 +35,7 @@ setTimeout(function() {
   }
 
   console.log('Enumerating outputs');
-  for (var i = 0; i < output.getPortCount(); ++i) {
+  for (let i = 0; i < output.getPortCount(); ++i) {
     console.log('Output found: ' + input.getPortName(i));
     if (output.getPortName(i) == inputName) {
       console.log('Opening ' + output.getPortName(i));
@@ -43,7 +43,7 @@ setTimeout(function() {
     }
   }
 
-  var id = setInterval(function() {
+  let id = setInterval(function() {
     console.log('Sending message');
     output.sendMessage([144, 23, 81]);
   }, 1000);

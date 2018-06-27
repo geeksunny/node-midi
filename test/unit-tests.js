@@ -1,6 +1,6 @@
-var should = require('should');
-var EventEmitter = require('events').EventEmitter;
-var Midi = require('../midi');
+const should = require('should');
+const EventEmitter = require('eventemitter3');
+const Midi = require('../midi');
 
 describe('midi.input', function() {
   it('should raise when not called with new', function() {
@@ -10,12 +10,12 @@ describe('midi.input', function() {
   });
 
   it('should be an emitter', function() {
-    var input = new Midi.input();
+    let input = new Midi.input();
     input.should.be.an.instanceOf(EventEmitter);
   });
 
   describe('.getPortCount', function() {
-    var input = new Midi.input();
+    let input = new Midi.input();
     it('should return an integer', function() {
       // I feel like having more than 255 ports indicates a problem.
       input.getPortCount().should.be.within(0, 255);
@@ -23,7 +23,7 @@ describe('midi.input', function() {
   });
 
   describe('.getPortName', function() {
-    var input = new Midi.input();
+    let input = new Midi.input();
 
     it('requires an argument', function() {
       (function() {
@@ -43,7 +43,7 @@ describe('midi.input', function() {
   });
 
   describe('.openPort', function() {
-    var input = new Midi.input();
+    let input = new Midi.input();
 
     it('requires an argument', function() {
       (function() {
@@ -65,7 +65,7 @@ describe('midi.input', function() {
   });
 
   describe('.openVirtualPort', function() {
-    var input = new Midi.input();
+    let input = new Midi.input();
 
     it('requires an argument', function() {
       (function() {
@@ -81,7 +81,7 @@ describe('midi.input', function() {
   });
 
   describe('.closePort', function() {
-    var input = new Midi.input();
+    let input = new Midi.input();
 
     it('allows you to close a port that was not opened', function() {
       input.closePort();
@@ -97,12 +97,12 @@ describe('midi.output', function() {
   });
 
   it('should not be an emitter', function() {
-    var output = new Midi.output();
+    let output = new Midi.output();
     output.should.not.be.an.instanceOf(EventEmitter);
   });
 
   describe('.getPortCount', function() {
-    var output = new Midi.output();
+    let output = new Midi.output();
     it('should return an integer', function() {
       // I feel like having more than 255 ports indicates a problem.
       output.getPortCount().should.be.within(0, 255);
@@ -110,7 +110,7 @@ describe('midi.output', function() {
   });
 
   describe('.getPortName', function() {
-    var output = new Midi.output();
+    let output = new Midi.output();
 
     it('requires an argument', function() {
       (function() {
@@ -130,7 +130,7 @@ describe('midi.output', function() {
   });
 
   describe('.openPort', function() {
-    var output = new Midi.output();
+    let output = new Midi.output();
 
     it('requires an argument', function() {
       (function() {
@@ -152,7 +152,7 @@ describe('midi.output', function() {
   });
 
   describe('.openVirtualPort', function() {
-    var output = new Midi.output();
+    let output = new Midi.output();
 
     it('requires an argument', function() {
       (function() {
@@ -168,7 +168,7 @@ describe('midi.output', function() {
   });
 
   describe('.closePort', function() {
-    var output = new Midi.output();
+    let output = new Midi.output();
 
     it('allows you to close a port that was not opened', function() {
       output.closePort();
