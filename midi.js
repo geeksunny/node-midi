@@ -1,22 +1,22 @@
-var midi = require('bindings')('midi');
-var Stream = require('stream');
+const midi = require('bindings')('midi');
+const Stream = require('stream');
 
-// MIDI input inherits from EventEmitter
-var EventEmitter = require('events').EventEmitter;
+// MIDI input inherits from EventEmitter3
+const EventEmitter = require('eventemitter3');
 midi.input.prototype.__proto__ = EventEmitter.prototype;
 
 module.exports = midi;
 
 midi.createReadStream = function(input) {
   input = input || new midi.input();
-  var stream = new Stream();
+  let stream = new Stream();
   stream.readable = true;
   stream.paused = false;
   stream.queue = [];
 
   input.on('message', function(deltaTime, message) {
 
-    var packet = new Buffer(message);
+    let packet = new Buffer(message);
 
     if (!stream.paused) {
       stream.emit('data', packet);
@@ -40,7 +40,7 @@ midi.createReadStream = function(input) {
 
 midi.createWriteStream = function(output) {
   output = output || new midi.output();
-  var stream = new Stream();
+  let stream = new Stream();
   stream.writable = true;
   stream.paused = false;
   stream.queue = [];
@@ -54,7 +54,7 @@ midi.createWriteStream = function(output) {
     output.sendMessage(d);
 
     return !this.paused;
-  }
+  };
 
   stream.end = function(buf) {
     buf && stream.write(buf);
@@ -63,7 +63,7 @@ midi.createWriteStream = function(output) {
 
   stream.destroy = function() {
     stream.writable = false;
-  }
+  };
 
   return stream;
 };
