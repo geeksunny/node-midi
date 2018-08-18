@@ -268,7 +268,6 @@ public:
 
         NodeMidiInput* input = new NodeMidiInput();
         input->message_async.data = input;
-        uv_async_init(uv_default_loop(), &input->message_async, NodeMidiInput::EmitMessage);
         input->Wrap(info.This());
 
         info.GetReturnValue().Set(info.This());
@@ -317,6 +316,7 @@ public:
             return Nan::ThrowRangeError("Invalid MIDI port number");
         }
 
+        uv_async_init(uv_default_loop(), &input->message_async, NodeMidiInput::EmitMessage);
         input->Ref();
         input->in->setCallback(&NodeMidiInput::Callback, Nan::ObjectWrap::Unwrap<NodeMidiInput>(info.This()));
         input->in->openPort(portNumber);
@@ -333,6 +333,7 @@ public:
 
         std::string name(*v8::String::Utf8Value(info[0].As<v8::String>()));
 
+        uv_async_init(uv_default_loop(), &input->message_async, NodeMidiInput::EmitMessage);
         input->Ref();
         input->in->setCallback(&NodeMidiInput::Callback, Nan::ObjectWrap::Unwrap<NodeMidiInput>(info.This()));
         input->in->openVirtualPort(name);
